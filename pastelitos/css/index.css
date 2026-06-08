@@ -459,3 +459,15 @@ body.dark-mode .boton_in{
 menu {
     display:none
 }
+
+/* Pantallas de hasta 768px */
+@media (max-width: 768px) {
+  header {
+    display: block;
+    text-align: center;
+  }
+
+  .btn-carrito-nav {
+    margin: 20px auto;
+  }
+}
