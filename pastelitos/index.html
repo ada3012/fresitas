@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huellitas con crema</title>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+
+<body>
+    <main-menu><main-menu>
+
+    <header>
+        <img src="./assets/img/logo.png" style="max-width: 15vh; border-radius: 20px;" alt="Logo">
+        <h1 class="graffiti-title">Huellitas con crema</h1>
+        <button class="btn-carrito-nav" onclick="verCarrito()">🛒 Ver Carrito</button>
+    </header>
+
+    <div class="container">
+        
+        <section id="vista-catalogo">
+            <input type="text" class="search-bar" placeholder="🔍 Buscar promociones..." onkeyup="buscarProducto()">
+
+            <div class="grid-productos">
+
+                <div class="producto-card">
+                    <div class="img-placeholder">
+                        <img src="./assets/img/prod.png" alt="Fresas con Crema">
+                    </div>
+                    <h3>fresas con crema</h3>
+                    <p><strong>$25.00</strong></p>
+                    <button class="btn-add" onclick="irAPago('fresas con crema', 25, './assets/img/prod.png')">
+                    Ver Detalles</button>
+                </div>
+
+                <div class="producto-card">
+                    <div class="img-placeholder">
+                        <img src="./assets/img/WhatsApp Image 2026-05-26 at 9.20.51 AM (2).jpeg" alt="Ran cake">
+                    </div>
+                    <h3>Ramcake</h3>
+                    <p><strong>$25.00</strong></p>
+                    <button class="btn-add" onclick="irAPago('Ran cake', 25, './assets/img/WhatsApp Image 2026-05-26 at 9.20.51 AM (2).jpeg')">
+                    Ver Detalles</button>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="vista-pago" style="display:none;">
+            <button class="btn-regresar" onclick="volverCatalogo()">← Volver al catálogo</button>
+
+            <div class="checkout-container">
+                <div class="card">
+                    <div class="img-dentro" id="pago-img">
+                        <img src="./assets/img/cake.png" alt="Producto">
+                    </div>
+                    <h2 id="pago-titulo">Nombre del pastelito</h2>
+                    <p id="pago-precio" style="font-size: 20px; font-weight: bold; color: #fcb1bb;">$0.00</p>
+
+                    <div class="quantity-control" style="justify-content: center;">
+                        <button type="button" onclick="cambiarCantidad(-1)">-</button>
+                        <input type="number" id="cantidad" value="1" min="1" readonly>
+                        <button type="button" onclick="cambiarCantidad(1)">+</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Información del Producto</h3>
+                    <p id="info-descripcion" style="margin-top: 10px; color: #555; font-style: italic;"></p>
+                    
+                    <ul class="info-producto-lista">
+                        <li><strong>Ingredientes:</strong> <span id="info-ingredientes">Fresas, crema, lechera, 1 toping de tu gusto</span></li>
+                    </ul>
+                    
+                    <div class="total-section" style="margin-top: 30px;">
+                        <span>Subtotal:</span>
+                        <span id="precio-total">$0.00</span>
+                    </div>
+
+                    <button class="btn-confirm" onclick="agregarDesdeDetalles(event)">🛒 Agregar al Carrito</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="vista-carrito" style="display:none;">
+            <button class="btn-regresar" onclick="volverCatalogo()">← Volver al catálogo</button>
+            <h2 style="margin-bottom: 20px;">🛒 Tu carrito de compras</h2>
+
+            <div class="carrito-container-pro">
+                <div class="carrito-items-col" id="carrito-lista">
+                    </div>
+
+                <div class="carrito-pago-col">
+                    <h3>Resumen de Pago</h3>
+                    <h2 id="total-carrito" style="color: #fcb1bb; margin: 15px 0; font-size: 28px;">$0.00</h2>
+
+                    <label style="font-weight: bold; display: block; margin-bottom: 10px;">Método de pago:</label>
+                    <div class="payment-group">
+                        <input type="radio" id="pago-efectivo" name="pago" value="efectivo" checked onclick="toggleTarjeta(false)">
+                        <label for="pago-efectivo" class="payment-label">💵 Efectivo</label>
+
+                        <input type="radio" id="pago-tarjeta" name="pago" value="tarjeta" onclick="toggleTarjeta(true)">
+                        <label for="pago-tarjeta" class="payment-label">💳 Tarjeta</label>
+                    </div>
+
+                    <div id="form-tarjeta" style="display: none; margin-bottom: 20px; animation: fadeIn 0.3s ease;">
+                        <input type="text" placeholder="Número de tarjeta (16 dígitos)" maxlength="16" class="input-pro" style="margin-bottom: 10px;">
+                        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                            <input type="text" placeholder="MM/AA" maxlength="5" class="input-pro">
+                            <input type="text" placeholder="CVV" maxlength="3" class="input-pro">
+                        </div>
+                        <input type="text" placeholder="Nombre del titular" class="input-pro">
+                    </div>
+
+                    <div style="margin-top: 15px; margin-bottom: 20px;">
+                        <label style="font-weight: bold; display: block; margin-bottom: 5px;">Tu Nombre (para el ticket):</label>
+                        <input type="text" id="nombre-cliente" class="input-pro" placeholder="Ej. Pedro Lopez">
+                    </div>
+
+                    <button onclick="pagarCarrito()" class="btn-confirm">Generar Ticket y Pagar 🎉</button>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <div id="ticket-pdf-template" style="display: none; width: 400px; background: #121212; color: #e0e0e0; padding: 20px; border-radius: 10px; font-family: 'Courier New', Courier, monospace;">
+        <div style="text-align: center; border-bottom: 1px dashed #fcb1bb; padding-bottom: 15px; margin-bottom: 20px;">
+            <h1 style="color: #fcb1bb; margin: 0; font-size: 28px; text-shadow: 0 0 10px rgba(230, 65, 216, 0.492);">HARDWARE CAKE</h1>
+            <p style="margin: 5px 0 0 0; font-size: 12px; color: #888;">Recibo Digital de Compra</p>
+        </div>
+        
+        <p style="font-size: 16px;">¡Gracias por tu compra, <strong id="pdf-nombre-cliente" style="color: #fcb1bb;"></strong>!</p>
+        
+        <table style="width: 100%; border-collapse: collapse; margin-top: 20px; margin-bottom: 20px;">
+            <thead style="border-bottom: 1px solid #333;">
+                <tr>
+                    <th style="text-align: left; padding: 5px 0;">Prod.</th>
+                    <th style="text-align: center; padding: 5px 0;">Cant.</th>
+                    <th style="text-align: right; padding: 5px 0;">Precio</th>
+                </tr>
+            </thead>
+            <tbody id="pdf-lista-productos">
+                </tbody>
+        </table>
+        
+        <div style="text-align: right; font-size: 20px; font-weight: bold; border-top: 1px solid #333; padding-top: 10px;">
+            Total: <span id="pdf-total" style="color: white;"></span>
+        </div>
+
+        <div style="margin-top: 30px; display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed #fcb1bb; padding-top: 15px;">
+            <div style="text-align: center;">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://hardwarecake.com" style="width: 80px; height: 80px; border: 2px solid white; border-radius: 5px;">
+                <p style="font-size: 10px; margin-top: 5px; color: #888;">Escanea la web</p>
+            </div>
+            <div style="text-align: right;">
+                <span style="background: #fcb1bb; color: white; padding: 5px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;">PAGO APROBADO</span>
+            </div>
+        </div>
+    </div>
+
+<script src="./js/index.js"></script>
+<script src="./js/AM/menu.js"></script>
+
+</body>
+</html>
